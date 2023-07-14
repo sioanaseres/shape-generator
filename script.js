@@ -73,7 +73,6 @@ function handleClick(event) {
   const offsetX = event.clientX - canvasRect.left;
   const offsetY = event.clientY - canvasRect.top;
 
-  let shapeClicked = false;
   shapes.forEach((shape) => {
     if (
       offsetX >= shape.x &&
@@ -81,7 +80,6 @@ function handleClick(event) {
       offsetY >= shape.y &&
       offsetY <= shape.y + 50
     ) {
-      shapeClicked = true;
       const index = shapes.indexOf(shape);
       shapes.splice(index, 1);
       shapeCount--;
@@ -90,14 +88,12 @@ function handleClick(event) {
     }
   });
 
-  if (!shapeClicked) {
-    const color = getRandomColor();
-    const newShape = { x: offsetX, y: offsetY, color };
-    shapes.push(newShape);
-    shapeCount++;
-    surfaceArea += calculateShapeArea(newShape);
-    updateInfo();
-  }
+  const color = getRandomColor();
+  const newShape = { x: offsetX, y: offsetY, color };
+  shapes.push(newShape);
+  shapeCount++;
+  surfaceArea += calculateShapeArea(newShape);
+  updateInfo();
 }
 
 function handleShapeClick(event) {
