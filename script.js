@@ -97,7 +97,9 @@ function handleClick(event) {
 }
 
 function handleShapeClick(event) {
-  const { offsetX, offsetY } = event;
+  const canvasRect = canvas.getBoundingClientRect();
+  const offsetX = event.clientX - canvasRect.left;
+  const offsetY = event.clientY - canvasRect.top;
 
   shapes.forEach((shape, index) => {
     if (
