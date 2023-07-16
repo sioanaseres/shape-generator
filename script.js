@@ -67,33 +67,36 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-// click
 function handleClick(event) {
   const canvasRect = canvas.getBoundingClientRect();
   const offsetX = event.clientX - canvasRect.left;
   const offsetY = event.clientY - canvasRect.top;
 
-  shapes.forEach((shape) => {
+  let clickedOnShape = false;
+  shapes.forEach((shape, index) => {
     if (
       offsetX >= shape.x &&
       offsetX <= shape.x + 50 &&
       offsetY >= shape.y &&
       offsetY <= shape.y + 50
     ) {
-      const index = shapes.indexOf(shape);
       shapes.splice(index, 1);
       shapeCount--;
       surfaceArea -= calculateShapeArea(shape);
       updateInfo();
+      clickedOnShape = true;
     }
   });
 
-  const color = getRandomColor();
-  const newShape = { x: offsetX, y: offsetY, color };
-  shapes.push(newShape);
-  shapeCount++;
-  surfaceArea += calculateShapeArea(newShape);
-  updateInfo();
+  if (!clickedOnShape) {
+    const color = getRandomColor();
+    const newShape = { x: offsetX - 55, y: offsetY - 55, color };
+    shapes.push(newShape);
+
+    shapeCount++;
+    surfaceArea += calculateShapeArea(newShape);
+    updateInfo();
+  }
 }
 
 function handleShapeClick(event) {
@@ -119,5 +122,5 @@ function handleShapeClick(event) {
 canvas.addEventListener("click", handleClick);
 canvas.addEventListener("click", handleShapeClick);
 
-setInterval(generateShape, 1000);
+setInterval(generateShape, 5000);
 draw();
