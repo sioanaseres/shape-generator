@@ -122,5 +122,5 @@ function handleShapeClick(event) {
 canvas.addEventListener("click", handleClick);
 canvas.addEventListener("click", handleShapeClick);
 
-setInterval(generateShape, 5000);
+setInterval(generateShape, 1000);
 draw();
